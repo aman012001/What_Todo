@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:todo/database_helper.dart';
 import 'package:todo/screens/Task_Screen.dart';
 import 'package:todo/widgets.dart';
 
@@ -9,6 +10,9 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+
+  DatabaseHelper _dbHelper = DatabaseHelper();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,40 +23,48 @@ class _HomepageState extends State<Homepage> {
             padding: EdgeInsets.all(24.0),
             child: Stack(
               children: [
-                Expanded(
-                  child: ScrollConfiguration(
-                    behavior: NoGlowBehavior(),
-                    child: ListView(
-                      children: [ Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Image(
-                          image: AssetImage(
-                              'assests/images/logo.png'
-                          ),
-                         ),
-                          TaskCard(
 
-                          ),
-                          TaskCard(),
-                          TaskCard(),
-                          TaskCard(),
-                          TaskCard(),
-                          TaskCard(),
-                        ]
-                       ),
-                      ]
+                Container(
+                  margin: EdgeInsets.only(
+                    top: 32,
+                    bottom:32,
+                  ),
+                  child: Image(
+                    image: AssetImage(
+                        'assests/images/logo.png'
                     ),
                   ),
                 ),
+
+                Expanded(
+                  child: FutureBuilder(
+                    initialData: [],
+                    future: _dbHelper.getListofTasks(),
+                    builder: (context, snapshot){
+                      return ScrollConfiguration(
+                        behavior: NoGlowBehavior(),
+                        child: ListView.builder(
+                            itemCount: snapshot.data.length,
+                            itemBuilder: (context, index){
+                              return TaskCard(
+                                title: snapshot.data[index].title,
+                              );
+                            }
+                        ),
+                      );
+                    },
+                  ),
+                ),
+
                 Positioned(
                   bottom: 24.0,
                   right: 0.0,
                   child: GestureDetector(
                     onTap: (){
-                      Navigator.push(context, MaterialPageRoute(
-                        builder: (context)=>Taskpage(),
-                      ));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context)=>Taskpage())).then((value){
+                        setState((){});
+                       });
                     },
                     child: Container(
                       width: 50.0,

@@ -15,7 +15,6 @@ class TaskCard extends StatelessWidget {
       ),
       padding: EdgeInsets.symmetric(
         vertical: 18.0,
-
         horizontal: 12.0,
       ),
       decoration: BoxDecoration(

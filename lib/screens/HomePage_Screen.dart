@@ -23,7 +23,9 @@ class _HomepageState extends State<Homepage> {
             padding: EdgeInsets.all(24.0),
             child: Stack(
               children: [
-
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
                 Container(
                   margin: EdgeInsets.only(
                     top: 32,
@@ -35,7 +37,6 @@ class _HomepageState extends State<Homepage> {
                     ),
                   ),
                 ),
-
                 Expanded(
                   child: FutureBuilder(
                     initialData: [],
@@ -44,10 +45,20 @@ class _HomepageState extends State<Homepage> {
                       return ScrollConfiguration(
                         behavior: NoGlowBehavior(),
                         child: ListView.builder(
-                            itemCount: snapshot.data.length,
+                            itemCount:  snapshot.data.length,
                             itemBuilder: (context, index){
-                              return TaskCard(
-                                title: snapshot.data[index].title,
+                              return GestureDetector(
+                                onTap: (){
+                                  Navigator.push(context,
+                                  MaterialPageRoute(builder: (context)=> Taskpage(
+                                      task: snapshot.data[index],
+                                    )
+                                  )
+                                  );
+                                },
+                                child: TaskCard(
+                                  title: snapshot.data[index].title,
+                                ),
                               );
                             }
                         ),
@@ -55,14 +66,16 @@ class _HomepageState extends State<Homepage> {
                     },
                   ),
                 ),
-
+                  ],
+                ),
                 Positioned(
                   bottom: 24.0,
                   right: 0.0,
                   child: GestureDetector(
                     onTap: (){
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context)=>Taskpage())).then((value){
+                          MaterialPageRoute(builder: (context)=>Taskpage(task: null,)))
+                          .then((value){
                         setState((){});
                        });
                     },

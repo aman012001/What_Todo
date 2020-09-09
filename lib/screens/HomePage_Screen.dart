@@ -20,24 +20,29 @@ class _HomepageState extends State<Homepage> {
             child: Stack(
               children: [
                 Expanded(
-                  child: ListView(
-                    children: [ Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Image(
-                        image: AssetImage(
-                            'assests/images/logo.png'
-                        ),
+                  child: ScrollConfiguration(
+                    behavior: NoGlowBehavior(),
+                    child: ListView(
+                      children: [ Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Image(
+                          image: AssetImage(
+                              'assests/images/logo.png'
+                          ),
+                         ),
+                          TaskCard(
+
+                          ),
+                          TaskCard(),
+                          TaskCard(),
+                          TaskCard(),
+                          TaskCard(),
+                          TaskCard(),
+                        ]
                        ),
-                        TaskCard(),
-                        TaskCard(),
-                        TaskCard(),
-                        TaskCard(),
-                        TaskCard(),
-                        TaskCard(),
                       ]
-                     ),
-                    ]
+                    ),
                   ),
                 ),
                 Positioned(
@@ -54,7 +59,11 @@ class _HomepageState extends State<Homepage> {
                       height: 50.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.0),
-                        color: Color(0xff7349fe),
+                        gradient: LinearGradient(
+                          colors: [Color(0xff7349fe),Color(0xff643fdb)],
+                          begin: Alignment(0.0,-1.0),
+                          end: Alignment(0.0,1.0),
+                        )
                       ),
                       child: Image(
                         image: AssetImage(

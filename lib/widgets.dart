@@ -49,3 +49,62 @@ class TaskCard extends StatelessWidget {
     );
   }
 }
+
+class TodoWidget extends StatelessWidget {
+  final String text;
+  final bool iscompleted;
+
+  TodoWidget({this.text,@required this.iscompleted});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Row(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 8,
+            ),
+            child: Container(
+              height: 32,
+              width: 32,
+              decoration: BoxDecoration(
+                color:  iscompleted ? Color(0xff7349ff): Colors.transparent,
+                borderRadius: BorderRadius.circular(8.0),
+                border: iscompleted ? null : Border.all(
+                  color: Color(0xff868290),
+                  width: 1.5,
+                )
+              ),
+              child: Image(
+                image:  AssetImage(
+                  "assests/images/check_icon.png",
+                ),
+              ),
+            ),
+          ),
+          Text(
+            text ?? "{Unnamed To Do}",
+
+          style: TextStyle(
+            color: iscompleted ? Color(0xff211511): Color(0xff868290),
+            fontSize: 16.0,
+            fontWeight: iscompleted ?FontWeight.bold: FontWeight.w500,
+          ),
+          ),
+        ],
+      ),
+    );
+
+  }
+}
+
+class NoGlowBehavior extends ScrollBehavior{
+  @override
+  Widget buildViewportChrome(
+      BuildContext context, Widget Child, AxisDirection axisDirection){
+    return Child;
+  }
+}
+

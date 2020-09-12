@@ -32,6 +32,8 @@ dependencies:
   sqflite:
   path:
   super_tooltip: ^0.9.0
+  highlighter_coachmark: ^0.0.3
+
 
 dev_dependencies:
   flutter_test:
